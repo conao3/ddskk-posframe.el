@@ -165,6 +165,12 @@ When 0, no border is showed."
        (not (or noninteractive
                 (not (display-graphic-p))))))
 
+(defun ddskk-posframe-window ()
+  "Return the posframe window displaying `ddskk-posframe-buffer'."
+  (frame-selected-window
+   (buffer-local-value 'posframe--frame
+                       (get-buffer ddskk-posframe-buffer))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;  Minormode definition
