@@ -1,0 +1,100 @@
+#+author: conao
+#+date: <2019-05-24 Fri>
+
+[[https://github.com/conao3/ddskk-posframe.el][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/ddskk-posframe.el.png]]
+[[https://github.com/conao3/ddskk-posframe.el/blob/master/LICENSE][https://img.shields.io/github/license/conao3/ddskk-posframe.el.svg?style=flat-square]]
+[[https://github.com/conao3/ddskk-posframe.el/releases][https://img.shields.io/github/tag/conao3/ddskk-posframe.el.svg?style=flat-square]]
+[[https://travis-ci.org/conao3/ddskk-posframe.el][https://img.shields.io/travis/conao3/ddskk-posframe.el/master.svg?style=flat-square]]
+[[https://app.codacy.com/project/conao3/ddskk-posframe.el/dashboard][https://img.shields.io/codacy/grade/1a6befcbdfdb4b1fb37a6f7f040a75b2.svg?logo=codacy&style=flat-square]]
+[[https://www.patreon.com/conao3][https://img.shields.io/badge/patreon-@conao3-orange.svg?logo=patreon&style=flat-square]]
+[[https://twitter.com/conao_3][https://img.shields.io/badge/twitter-@conao__3-blue.svg?logo=twitter&style=flat-square]]
+[[https://conao3-support.slack.com/join/shared_invite/enQtNjUzMDMxODcyMjE1LWUwMjhiNTU3Yjk3ODIwNzAxMTgwOTkxNmJiN2M4OTZkMWY0NjI4ZTg4MTVlNzcwNDY2ZjVjYmRiZmJjZDU4MDE][https://img.shields.io/badge/chat-on_slack-blue.svg?logo=slack&style=flat-square]]
+
+* Table of Contents
+- [[#description][Description]]
+- [[#install][Install]]
+  - [[#el-get-install][El-get install]]
+  - [[#manual-install][Manual install]]
+- [[#usage][Usage]]
+- [[#information][Information]]
+  - [[#donation][Donation]]
+  - [[#community][Community]]
+  - [[#contribution][Contribution]]
+  - [[#migration][Migration]]
+  - [[#license][License]]
+  - [[#author][Author]]
+  - [[#contributors][Contributors]]
+  - [[#special-thanks][Special Thanks]]
+
+* Description
+~ddskk-posframe.el~ provide Henkan tooltip for [[https://github.com/skk-dev/ddskk][ddskk]] via [[https://github.com/tumashu/posframe][posframe]].
+
+* Install
+~leaf.el~ and ~ddskk-posframe.el~ are not part of MELPA. So you need to download it on your hand.
+
+** El-get install
+#+begin_src emacs-lisp
+  (leaf skk
+    :ensure ddskk
+    :custom ((default-input-method . "japanese-skk"))
+    :config
+    (leaf ddskk-posframe
+      :el-get (ddskk-posframe in conao3/ddskk-posframe.el)
+      :require t
+      :config (ddskk-posframe-init)))
+#+end_src
+
+** Manual instlal
+Put ~ddskk-posframe.el~ at any folder added ~load-path~.
+Then ~(require 'ddskk-posframe)~.
+
+#+BEGIN_SRC emacs-lisp
+  (leaf skk
+    :ensure ddskk
+    :custom ((default-input-method . "japanese-skk"))
+    :config
+    (leaf ddskk-posframe
+      :load-path `,(locate-user-emacs-file "site-lisp/ddskk-posframe.el")
+      :require t
+      :config (ddskk-posframe-init)))
+#+END_SRC
+
+* Usage
+* Information
+** Donation
+I love OSS and I am dreaming of working on it as *full-time* job.
+
+*With your support*, I will be able to spend more time at OSS!
+
+[[https://www.patreon.com/conao3][https://c5.patreon.com/external/logo/become_a_patron_button.png]]
+
+** Community
+All feedback and suggestions are welcome!
+
+You can use github issues, but you can also use [[https://conao3-support.slack.com/join/shared_invite/enQtNjUzMDMxODcyMjE1LWUwMjhiNTU3Yjk3ODIwNzAxMTgwOTkxNmJiN2M4OTZkMWY0NjI4ZTg4MTVlNzcwNDY2ZjVjYmRiZmJjZDU4MDE][Slack]]
+if you want a more casual conversation.
+
+** Contribution
+We welcome PR!
+Travis Cl test with all Emacs version 26.1 or above.
+
+I think that it is difficult to prepare the environment locally,
+so I think that it is good to throw PR and test Travis for the time being!
+Feel free throw PR!
+** Migration
+** License
+#+begin_example
+  Affero General Public License Version 3 (AGPLv3)
+  Copyright (c) Naoya Yamashita - https://conao3.com
+  https://github.com/conao3/ddskk-posframe.el/blob/master/LICENSE
+#+end_example
+
+** Author
+- Naoya Yamashita ([[https://github.com/conao3][conao3]])
+
+** Contributors
+
+Advice and comments given by [[http://emacs-jp.github.io/][Emacs-JP]]'s forum member has been a great help
+in developing ~ddskk-posframe.el~.
+
+Thank you very much!!
