@@ -139,6 +139,21 @@ When 0, no border is showed."
        (not (or noninteractive
                 (not (display-graphic-p))))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;  Advices
+;;
+
+(defvar ddskk-posframe-advice-alist
+  '((skk-henkan-in-minibuff . ddskk-posframe--skk-henkan-in-minibuff)))
+
+(defun ddskk-posframe--skk-henkan-in-minibuff (fn &rest args)
+  "Around advice for `skk-henkan-in-minibuff'."
+  (with-current-buffer ddskk-posframe-buffer
+    (erase-buffer)
+    (insert "↓辞書登録中↓"))
+  (funcall fn args))
+
 ;;;###autoload
 (define-minor-mode ddskk-posframe-mode
   "Enable ddskk-posframe-mode."
@@ -148,8 +163,14 @@ When 0, no border is showed."
   :group 'ddskk-posframe
   (if ddskk-posframe-mode
       (progn
+        (mapc (lambda (elm)
+                (advice-add (car elm) :around (cdr elm)))
+              ddskk-posframe-advice-alist)
         (setq-default skk-show-tooltip t)
         (setq-default skk-tooltip-function ddskk-posframe-display))
+    (mapc (lambda (elm)
+                (advice-remove (car elm) (cdr elm)))
+              ddskk-posframe-advice-alist)
     (setq-default skk-show-tooltip nil)
     (setq-default skk-tooltip-function ddskk-posframe-display)))
 
