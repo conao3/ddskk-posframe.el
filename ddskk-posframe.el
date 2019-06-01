@@ -140,12 +140,12 @@ When 0, no border is showed."
        (lambda (elm)
          `(defun ,(intern (format "ddskk-posframe-display-at-%s" (car elm))) (str)
             ,(format "Display STR via `posframe' at %s" (car elm))
-            (ddskk-posframe--display str ,(cdr elm))))
+            (ddskk-posframe--display str #',(intern (format "posframe-poshandler-" (cdr elm))))))
        '((window-center      . window-center)
          (frame-center       . frame-center)
          (window-bottom-left . window-bottom-left-corner)
          (frame-bottom-left  . frame-bottom-left-corner)
-         (point              . posframe-poshandler-point-bottom-left-corner)))))
+         (point              . point-bottom-left-corner)))))
 
 (defun ddskk-posframe-display-at-frame-bottom-window-center (str)
   (ddskk-posframe--display
@@ -193,7 +193,7 @@ When 0, no border is showed."
 (defvar ddskk-posframe-saved-variables-alist nil)
 (defvar ddskk-posframe-variables-alist
   '((skk-show-tooltip     . t)
-    (skk-tooltip-function . #'ddskk-posframe-display)))
+    (skk-tooltip-function . ddskk-posframe-display)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
