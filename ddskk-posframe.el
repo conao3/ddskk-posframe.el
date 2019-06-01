@@ -99,7 +99,7 @@ When 0, no border is showed."
   "The posframe-buffer used by ddskk-posframe.")
 
 (defvar ddskk-posframe--display-p nil
-  "The status of `ddskk-posframe--display'")
+  "The status of `ddskk-posframe--display'.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -107,7 +107,7 @@ When 0, no border is showed."
 ;;
 
 (defun ddskk-posframe--display (str &optional poshandler)
-  "Show STR in ivy's posframe."
+  "Show STR in ivy's posframe via POSHANDLER."
   (if (not (posframe-workable-p))
       (warn "ddskk-posframe is busy now!")
     (setq ddskk-posframe--display-p t)
@@ -148,6 +148,7 @@ When 0, no border is showed."
          (point              . point-bottom-left-corner)))))
 
 (defun ddskk-posframe-display-at-frame-bottom-window-center (str)
+  "Display STR via `posframe' at frame-bottom-window-center."
   (ddskk-posframe--display
    str (lambda (info)
          (cons (car (posframe-poshandler-window-center info))
@@ -186,12 +187,12 @@ When 0, no border is showed."
     (skk-henkan-in-minibuff . ddskk-posframe--skk-henkan-in-minibuff)))
 
 (defun ddskk-posframe--skk-henkan (fn &rest args)
-  "Around advice for `skk-henkan'."
+  "Around advice for `skk-henkan', FN with ARGS."
   (apply fn args)
   (ddskk-posframe-cleanup))
 
 (defun ddskk-posframe--skk-henkan-in-minibuff (fn &rest args)
-  "Around advice for `skk-henkan-in-minibuff'."
+  "Around advice for `skk-henkan-in-minibuff', FN with ARGS."
   (ddskk-posframe-display "↓辞書登録中↓")
   (apply fn args))
 
