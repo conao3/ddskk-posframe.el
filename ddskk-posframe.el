@@ -4,7 +4,7 @@
 
 ;; Author: Naoya Yamashita <conao3@gmail.com>
 ;; Maintainer: Naoya Yamashita <conao3@gmail.com>
-;; Keywords: convenience
+;; Keywords: tooltip convenience posframe
 ;; Version: 1.0.1
 ;; URL: https://github.com/conao3/ddskk-posframe.el
 ;; Package-Requires: ((emacs "26.1") (posframe "0.4.3") (ddskk "16.2.50"))
