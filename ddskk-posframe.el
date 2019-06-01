@@ -183,7 +183,7 @@ When 0, no border is showed."
   (with-current-buffer ddskk-posframe-buffer
     (erase-buffer)
     (insert "↓辞書登録中↓"))
-  (funcall fn args))
+  (apply fn args))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
