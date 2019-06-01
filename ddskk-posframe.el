@@ -216,7 +216,7 @@ When 0, no border is showed."
                   (let ((pair (assoc (car elm) ddskk-posframe-saved-variables-alist)))
                     (if pair
                         (setcdr pair (symbol-value (car elm)))
-                      (push (,(car elm) . ,(symbol-value (car elm)))
+                      (push `(,(car elm) . ,(symbol-value (car elm)))
                             ddskk-posframe-saved-variables-alist))))
                 vars)
           (eval
