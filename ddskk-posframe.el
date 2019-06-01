@@ -141,6 +141,11 @@ When 0, no border is showed."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;;  Minormode definition
+;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;;  Advices
 ;;
 
@@ -154,6 +159,21 @@ When 0, no border is showed."
     (insert "↓辞書登録中↓"))
   (funcall fn args))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;  Variables
+;;
+
+(defvar ddskk-posframe-saved-variables-alist nil)
+(defvar ddskk-posframe-variables-alist
+  '((skk-show-tooltip     . t)
+    (skk-tooltip-function . #'ddskk-posframe-display)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;  Minormode
+;;
+
 ;;;###autoload
 (define-minor-mode ddskk-posframe-mode
   "Enable ddskk-posframe-mode."
@@ -161,18 +181,26 @@ When 0, no border is showed."
   :global t
   :lighter " SKK-pf"
   :group 'ddskk-posframe
-  (if ddskk-posframe-mode
-      (progn
-        (mapc (lambda (elm)
-                (advice-add (car elm) :around (cdr elm)))
-              ddskk-posframe-advice-alist)
-        (setq-default skk-show-tooltip t)
-        (setq-default skk-tooltip-function ddskk-posframe-display))
-    (mapc (lambda (elm)
-                (advice-remove (car elm) (cdr elm)))
-              ddskk-posframe-advice-alist)
-    (setq-default skk-show-tooltip nil)
-    (setq-default skk-tooltip-function ddskk-posframe-display)))
+  (let ((advices    ddskk-posframe-advice-alist)
+        (vars       ddskk-posframe-variables-alist)
+        (saved-vars ddskk-posframe-saved-variables-alist))
+    (if ddskk-posframe-mode
+        (progn
+          (mapc (lambda (elm)
+                  (let ((pair (assoc (car elm) ddskk-posframe-saved-variables-alist)))
+                    (if pair
+                        (setcdr pair (symbol-value (car elm)))
+                      (push (,(car elm) . ,(symbol-value (car elm)))
+                            ddskk-posframe-saved-variables-alist))))
+                  vars)
+          (eval
+           `(progn
+              ,@(mapcar (lambda (elm) `(advice-add ',(car elm) :around ',(cdr elm))) advices)
+              ,@(mapcar (lambda (elm) `(setq-default ,(car elm) ',(cdr elm))) vars))))
+      (eval
+       `(progn
+          ,@(mapcar (lambda (elm) `(advice-remove ',(car elm) ',(cdr elm))) advices)
+          ,@(mapcar (lambda (elm) `(setq-default ,(car elm) ',(cdr elm))) saved-vars))))))
 
 (provide 'ddskk-posframe)
 ;;; ddskk-posframe.el ends here
