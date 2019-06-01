@@ -218,7 +218,7 @@ When 0, no border is showed."
                         (setcdr pair (symbol-value (car elm)))
                       (push (,(car elm) . ,(symbol-value (car elm)))
                             ddskk-posframe-saved-variables-alist))))
-                  vars)
+                vars)
           (eval
            `(progn
               ,@(mapcar (lambda (elm) `(advice-add ',(car elm) :around ',(cdr elm))) advices)
