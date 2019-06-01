@@ -5,9 +5,9 @@
 ;; Author: Naoya Yamashita <conao3@gmail.com>
 ;; Maintainer: Naoya Yamashita <conao3@gmail.com>
 ;; Keywords: convenience
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; URL: https://github.com/conao3/ddskk-posframe.el
-;; Package-Requires: ((emacs "26.1") (ddskk "16.2.50"))
+;; Package-Requires: ((emacs "26.1") (posframe "0.4.3") (ddskk "16.2.50"))
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the Affero GNU General Public License as
