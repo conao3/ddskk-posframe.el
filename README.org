@@ -10,6 +10,8 @@
 [[https://twitter.com/conao_3][https://img.shields.io/badge/twitter-@conao__3-blue.svg?logo=twitter&style=flat-square]]
 [[https://conao3-support.slack.com/join/shared_invite/enQtNjUzMDMxODcyMjE1LWUwMjhiNTU3Yjk3ODIwNzAxMTgwOTkxNmJiN2M4OTZkMWY0NjI4ZTg4MTVlNzcwNDY2ZjVjYmRiZmJjZDU4MDE][https://img.shields.io/badge/chat-on_slack-blue.svg?logo=slack&style=flat-square]]
 
+[[https://raw.githubusercontent.com/conao3/files/master/blob/ddskk-posframe.el/ddskk-splash.png]]
+
 * Table of Contents
 - [[#description][Description]]
 - [[#install][Install]]
@@ -29,6 +31,15 @@
 * Description
 ~ddskk-posframe.el~ provide Henkan tooltip for [[https://github.com/skk-dev/ddskk][ddskk]] via [[https://github.com/tumashu/posframe][posframe]].
 
+This package is part of a family of packages that display information in ~posframe~,
+and the following is a list of families.
+- [[https://github.com/tumashu/posframe][posframe]] by tumashu
+  - [[https://github.com/tumashu/ivy-posframe][ivy-posframe]] by tumashu
+  - [[https://github.com/tumashu/helm-posframe][helm-posframe]] by tumashu
+  - [[https://github.com/tumashu/company-posframe][company-posframe]] by tumashu
+  - [[https://github.com/yanghaoxie/which-key-posframe][which-key-posframe]] by yanghaoxie
+  - [[https://github.com/conao3/ddskk-posframe.el][ddskk-posframe]] by conao3
+
 * Install
 ~leaf.el~ and ~ddskk-posframe.el~ are not part of MELPA. So you need to download it on your hand.
 
@@ -41,7 +52,7 @@
     (leaf ddskk-posframe
       :el-get (ddskk-posframe in conao3/ddskk-posframe.el)
       :require t
-      :config (ddskk-posframe-init)))
+      :custom ((ddskk-posframe-mode . t))))
 #+end_src
 
 ** Manual instlal
@@ -56,10 +67,18 @@ Then ~(require 'ddskk-posframe)~.
     (leaf ddskk-posframe
       :load-path `,(locate-user-emacs-file "site-lisp/ddskk-posframe.el")
       :require t
-      :config (ddskk-posframe-init)))
+      :custom ((ddskk-posframe-mode . t))))
 #+END_SRC
 
 * Usage
+Turn on minor-mode, ~ddskk-posframe-mode~, to enable this package.
+
+This package safely disable to turn off the minor-mode.
+
+* Customize
+Set ~ddskk-posframe-style~ one of ~(window-center frame-center window-bottom-left frame-bottom-left point)~
+to configure where to show tooltip.
+
 * Information
 ** Donation
 I love OSS and I am dreaming of working on it as *full-time* job.
@@ -81,7 +100,9 @@ Travis Cl test with all Emacs version 26.1 or above.
 I think that it is difficult to prepare the environment locally,
 so I think that it is good to throw PR and test Travis for the time being!
 Feel free throw PR!
+
 ** Migration
+
 ** License
 #+begin_example
   Affero General Public License Version 3 (AGPLv3)
@@ -93,8 +114,4 @@ Feel free throw PR!
 - Naoya Yamashita ([[https://github.com/conao3][conao3]])
 
 ** Contributors
-
-Advice and comments given by [[http://emacs-jp.github.io/][Emacs-JP]]'s forum member has been a great help
-in developing ~ddskk-posframe.el~.
-
-Thank you very much!!
+- Not yet… Now send PR and add your name!!
