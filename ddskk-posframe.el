@@ -43,7 +43,7 @@
 ;;  Custom variables
 ;;
 
-(defcustom ddskk-posframe-style 'window-bottom-left
+(defcustom ddskk-posframe-style 'point
   "The style of ddskk-posframe."
   :group 'ddskk-posframe
   :type 'string)
@@ -126,6 +126,13 @@ When 0, no border is showed."
      :internal-border-width ddskk-posframe-border-width
      :internal-border-color (face-attribute 'ddskk-posframe-border :background nil t)
      :override-parameters ddskk-posframe-parameters)))
+
+(defun ddskk-posframe-display (str)
+  "Display STR via `posframe' by `ddskk-posframe-style'."
+  (let ((func (intern (format "ddskk-posframe-display-at-%s" ddskk-posframe-style))))
+    (if (functionp func)
+        (funcall func str)
+      (ddskk-posframe-display-at-point str))))
 
 (eval
  `(progn
