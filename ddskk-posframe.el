@@ -31,12 +31,127 @@
 
 ;;; Code:
 
+(require 'posframe)
 (require 'skk)
 
 (defgroup ddskk-posframe nil
   "Show Henkan tooltip for `skk' via `posframe'."
   :group 'lisp)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;  Custom variables
+;;
+
+(defcustom ddskk-posframe-style 'window-bottom-left
+  "The style of ddskk-posframe."
+  :group 'ddskk-posframe
+  :type 'string)
+
+(defcustom ddskk-posframe-font nil
+  "The font used by ddskk-posframe.
+When nil, Using current frame's font as fallback."
+  :group 'ddskk-posframe
+  :type 'string)
+
+(defcustom ddskk-posframe-width nil
+  "The width of ddskk-posframe."
+  :group 'ddskk-posframe
+  :type 'number)
+
+(defcustom ddskk-posframe-height nil
+  "The height of ddskk-posframe."
+  :group 'ddskk-posframe
+  :type 'number)
+
+(defcustom ddskk-posframe-min-width nil
+  "The width of ivy-min-posframe."
+  :group 'ddskk-posframe
+  :type 'number)
+
+(defcustom ddskk-posframe-min-height nil
+  "The height of ivy-min-posframe."
+  :group 'ddskk-posframe
+  :type 'number)
+
+(defcustom ddskk-posframe-border-width 1
+  "The border width used by ddskk-posframe.
+When 0, no border is showed."
+  :group 'ddskk-posframe
+  :type 'number)
+
+(defcustom ddskk-posframe-parameters nil
+  "The frame parameters used by ddskk-posframe."
+  :group 'ddskk-posframe
+  :type 'string)
+
+(defface ddskk-posframe
+  '((t (:inherit default)))
+  "Face used by the ddskk-posframe."
+  :group 'ddskk-posframe)
+
+(defface ddskk-posframe-border
+  '((t (:inherit default :background "gray50")))
+  "Face used by the ddskk-posframe's border."
+  :group 'ddskk-posframe)
+
+(defvar ddskk-posframe-buffer " *ddskk-posframe-buffer*"
+  "The posframe-buffer used by ddskk-posframe.")
+
+(defvar ddskk-posframe--display-p nil
+  "The status of `ddskk-posframe--display'")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;  Functions
+;;
+
+(defun ddskk-posframe--display (str &optional poshandler)
+  "Show STR in ivy's posframe."
+  (if (not (posframe-workable-p))
+      (warn "ddskk-posframe is busy now!")
+    (setq ddskk-posframe--display-p t)
+    (posframe-show
+     ddskk-posframe-buffer
+     :font ddskk-posframe-font
+     :string str
+     :position (point)
+     :poshandler poshandler
+     :background-color (face-attribute 'ddskk-posframe :background nil t)
+     :foreground-color (face-attribute 'ddskk-posframe :foreground nil t)
+     :height ddskk-posframe-height
+     :width ddskk-posframe-width
+     :min-height (or ddskk-posframe-min-height (+ skk-henkan-number-to-display-candidates 1))
+     :min-width (or ddskk-posframe-min-width (round (* (frame-width) 0.62)))
+     :internal-border-width ddskk-posframe-border-width
+     :internal-border-color (face-attribute 'ddskk-posframe-border :background nil t)
+     :override-parameters ddskk-posframe-parameters)))
+
+(defun ddskk-posframe-cleanup ()
+  "Cleanup ddskk-posframe."
+  (when (ddskk-posframe-workable-p)
+    (posframe-hide ddskk-posframe-buffer)
+    (setq ddskk-posframe--display-p nil)))
+
+(defun ddskk-posframe-workable-p ()
+  "Test ddskk-posframe workable status."
+  (and (>= emacs-major-version 26)
+       (not (or noninteractive
+                (not (display-graphic-p))))))
+
+;;;###autoload
+(define-minor-mode ddskk-posframe-mode
+  "Enable ddskk-posframe-mode."
+  :init-value nil
+  :global t
+  :lighter " SKK-pf"
+  :group 'ddskk-posframe
+  (if ddskk-posframe-mode
+      (progn
+        (setq-default skk-show-tooltip t)
+        (setq-default skk-tooltip-function ddskk-posframe-display))
+    (setq-default skk-show-tooltip nil)
+    (setq-default skk-tooltip-function ddskk-posframe-display)))
 
 (provide 'ddskk-posframe)
 ;;; ddskk-posframe.el ends here

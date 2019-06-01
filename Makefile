@@ -26,7 +26,7 @@ EXPECT_EMACS  += 26.1 26.2
 
 ALL_EMACS    := $(filter $(EMACS_RAW),$(EXPECT_EMACS:%=emacs-%))
 
-DEPENDS      := ddskk
+DEPENDS      := ddskk posframe
 
 TESTFILE     := ddskk-posframe-tests.el
 ELS          := ddskk-posframe.el
@@ -104,5 +104,10 @@ clean:
 
 ddskk:
 	curl -L https://github.com/skk-dev/ddskk/archive/master.tar.gz > $@.tar.gz
+	mkdir $@ && tar xf $@.tar.gz -C $@ --strip-components 1
+	rm -rf $@.tar.gz
+
+posframe:
+	curl -L https://github.com/tumashu/posframe/archive/master.tar.gz > $@.tar.gz
 	mkdir $@ && tar xf $@.tar.gz -C $@ --strip-components 1
 	rm -rf $@.tar.gz
