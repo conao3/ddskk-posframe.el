@@ -20,8 +20,6 @@ include Makefunc.mk
 
 TOP          := $(dir $(lastword $(MAKEFILE_LIST)))
 EMACS_RAW    := $(sort $(shell compgen -c emacs- | xargs))
-EXPECT_EMACS  += 24.4 24.5
-EXPECT_EMACS  += 25.1 25.2 25.3
 EXPECT_EMACS  += 26.1 26.2
 
 ALL_EMACS    := $(filter $(EMACS_RAW),$(EXPECT_EMACS:%=emacs-%))
