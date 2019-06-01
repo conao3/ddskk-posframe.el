@@ -182,7 +182,13 @@ When 0, no border is showed."
 ;;
 
 (defvar ddskk-posframe-advice-alist
-  '((skk-henkan-in-minibuff . ddskk-posframe--skk-henkan-in-minibuff)))
+  '((skk-henkan             . ddskk-posframe--skk-henkan)
+    (skk-henkan-in-minibuff . ddskk-posframe--skk-henkan-in-minibuff)))
+
+(defun ddskk-posframe--skk-henkan (fn &rest args)
+  "Around advice for `skk-henkan'."
+  (apply fn args)
+  (ddskk-posframe-cleanup))
 
 (defun ddskk-posframe--skk-henkan-in-minibuff (fn &rest args)
   "Around advice for `skk-henkan-in-minibuff'."
