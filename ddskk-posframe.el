@@ -127,6 +127,25 @@ When 0, no border is showed."
      :internal-border-color (face-attribute 'ddskk-posframe-border :background nil t)
      :override-parameters ddskk-posframe-parameters)))
 
+(eval
+ `(progn
+    ,@(mapcar
+       (lambda (elm)
+         `(defun ,(intern (format "ddskk-posframe-display-at-%s" (car elm))) (str)
+            ,(format "Display STR via `posframe' at %s" (car elm))
+            (ddskk-posframe--display str ,(cdr elm))))
+       '((window-center      . window-center)
+         (frame-center       . frame-center)
+         (window-bottom-left . window-bottom-left-corner)
+         (frame-bottom-left  . frame-bottom-left-corner)
+         (point              . posframe-poshandler-point-bottom-left-corner)))))
+
+(defun ddskk-posframe-display-at-frame-bottom-window-center (str)
+  (ddskk-posframe--display
+   str (lambda (info)
+         (cons (car (posframe-poshandler-window-center info))
+               (cdr (posframe-poshandler-frame-bottom-left-corner info))))))
+
 (defun ddskk-posframe-cleanup ()
   "Cleanup ddskk-posframe."
   (when (ddskk-posframe-workable-p)
