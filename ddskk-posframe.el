@@ -121,8 +121,8 @@ When 0, no border is showed."
      :foreground-color (face-attribute 'ddskk-posframe :foreground nil t)
      :height ddskk-posframe-height
      :width ddskk-posframe-width
-     :min-height (or ddskk-posframe-min-height (+ skk-henkan-number-to-display-candidates 1))
-     :min-width (or ddskk-posframe-min-width (round (* (frame-width) 0.62)))
+     :min-height (or ddskk-posframe-min-height 1)
+     :min-width (or ddskk-posframe-min-width 10)
      :internal-border-width ddskk-posframe-border-width
      :internal-border-color (face-attribute 'ddskk-posframe-border :background nil t)
      :override-parameters ddskk-posframe-parameters)))
@@ -186,9 +186,7 @@ When 0, no border is showed."
 
 (defun ddskk-posframe--skk-henkan-in-minibuff (fn &rest args)
   "Around advice for `skk-henkan-in-minibuff'."
-  (with-current-buffer ddskk-posframe-buffer
-    (erase-buffer)
-    (insert "↓辞書登録中↓"))
+  (ddskk-posframe-display "↓辞書登録中↓")
   (apply fn args))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
