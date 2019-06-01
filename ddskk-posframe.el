@@ -140,7 +140,7 @@ When 0, no border is showed."
        (lambda (elm)
          `(defun ,(intern (format "ddskk-posframe-display-at-%s" (car elm))) (str)
             ,(format "Display STR via `posframe' at %s" (car elm))
-            (ddskk-posframe--display str #',(intern (format "posframe-poshandler-" (cdr elm))))))
+            (ddskk-posframe--display str #',(intern (format "posframe-poshandler-%s" (cdr elm))))))
        '((window-center      . window-center)
          (frame-center       . frame-center)
          (window-bottom-left . window-bottom-left-corner)
