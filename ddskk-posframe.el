@@ -134,7 +134,7 @@ When 0, no border is showed."
   (let ((func (intern (format "ddskk-posframe-display-at-%s" ddskk-posframe-style))))
     (if (functionp func)
         (funcall func str)
-      (ddskk-posframe-display-at-point str))))
+      (funcall (intern (format "ddskk-posframe-display-at-%s" "point")) str))))
 
 (eval
  `(progn
