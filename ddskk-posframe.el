@@ -60,13 +60,13 @@ When nil, Using current frame's font as fallback."
 (defcustom ddskk-posframe-width nil
   "The width of ddskk-posframe."
   :group 'ddskk-posframe
-  :type '(choice (const :tag "non-width" nil)
+  :type '(choice (const :tag "default" nil)
                  number))
 
 (defcustom ddskk-posframe-height nil
   "The height of ddskk-posframe."
   :group 'ddskk-posframe
-  :type '(choice (const :tag "non-width" nil)
+  :type '(choice (const :tag "default" nil)
                  number))
 
 (defcustom ddskk-posframe-min-width nil
