@@ -70,13 +70,13 @@ When nil, Using current frame's font as fallback."
                  number))
 
 (defcustom ddskk-posframe-min-width nil
-  "The width of ivy-min-posframe."
+  "The width of ddskk-min-posframe."
   :group 'ddskk-posframe
   :type '(choice (const :tag "non-width" nil)
                  number))
 
 (defcustom ddskk-posframe-min-height nil
-  "The height of ivy-min-posframe."
+  "The height of ddskk-min-posframe."
   :group 'ddskk-posframe
   :type '(choice (const :tag "non-width" nil)
                  number))
@@ -116,7 +116,7 @@ When 0, no border is showed."
 ;;
 
 (defun ddskk-posframe--display (str &optional poshandler)
-  "Show STR in ivy's posframe via POSHANDLER."
+  "Show STR in ddskk posframe via POSHANDLER."
   (if (not (posframe-workable-p))
       (warn "ddskk-posframe is busy now!")
     (setq ddskk-posframe--display-p t)
