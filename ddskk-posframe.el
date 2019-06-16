@@ -38,7 +38,7 @@
 
 (defgroup ddskk-posframe nil
   "Show Henkan tooltip for `skk' via `posframe'."
-  :group 'lisp)
+  :group 'completion)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
