@@ -5,7 +5,7 @@
 ;; Author: Naoya Yamashita <conao3@gmail.com>
 ;; Maintainer: Naoya Yamashita <conao3@gmail.com>
 ;; Keywords: tooltip convenience posframe
-;; Version: 1.0.2
+;; Version: 1.0.4
 ;; URL: https://github.com/conao3/ddskk-posframe.el
 ;; Package-Requires: ((emacs "26.1") (posframe "0.4.3") (ddskk "16.2.50"))
 
@@ -60,13 +60,13 @@ When nil, Using current frame's font as fallback."
 (defcustom ddskk-posframe-width nil
   "The width of ddskk-posframe."
   :group 'ddskk-posframe
-  :type '(choice (const :tag "non-width" nil)
+  :type '(choice (const :tag "default" nil)
                  number))
 
 (defcustom ddskk-posframe-height nil
   "The height of ddskk-posframe."
   :group 'ddskk-posframe
-  :type '(choice (const :tag "non-width" nil)
+  :type '(choice (const :tag "default" nil)
                  number))
 
 (defcustom ddskk-posframe-min-width nil
