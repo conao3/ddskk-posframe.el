@@ -54,38 +54,45 @@
   "The font used by ddskk-posframe.
 When nil, Using current frame's font as fallback."
   :group 'ddskk-posframe
-  :type 'string)
+  :type '(choice (const :tag "inherit" nil)
+                 string))
 
 (defcustom ddskk-posframe-width nil
   "The width of ddskk-posframe."
   :group 'ddskk-posframe
-  :type 'number)
+  :type '(choice (const :tag "non-width" nil)
+                 number))
 
 (defcustom ddskk-posframe-height nil
   "The height of ddskk-posframe."
   :group 'ddskk-posframe
-  :type 'number)
+  :type '(choice (const :tag "non-width" nil)
+                 number))
 
 (defcustom ddskk-posframe-min-width nil
   "The width of ivy-min-posframe."
   :group 'ddskk-posframe
-  :type 'number)
+  :type '(choice (const :tag "non-width" nil)
+                 number))
 
 (defcustom ddskk-posframe-min-height nil
   "The height of ivy-min-posframe."
   :group 'ddskk-posframe
-  :type 'number)
+  :type '(choice (const :tag "non-width" nil)
+                 number))
 
 (defcustom ddskk-posframe-border-width 1
   "The border width used by ddskk-posframe.
 When 0, no border is showed."
   :group 'ddskk-posframe
-  :type 'number)
+  :type '(choice (const :tag "non-width" nil)
+                 number))
 
 (defcustom ddskk-posframe-parameters nil
   "The frame parameters used by ddskk-posframe."
   :group 'ddskk-posframe
-  :type 'string)
+  :type '(choice (const :tag "no-parameters" nil)
+                 number))
 
 (defface ddskk-posframe
   '((t (:inherit default)))
