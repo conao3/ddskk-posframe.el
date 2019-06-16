@@ -48,7 +48,7 @@
 (defcustom ddskk-posframe-style 'point
   "The style of ddskk-posframe."
   :group 'ddskk-posframe
-  :type 'string)
+  :type 'symbol)
 
 (defcustom ddskk-posframe-font nil
   "The font used by ddskk-posframe.
