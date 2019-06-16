@@ -29,7 +29,7 @@
   - [[#special-thanks][Special Thanks]]
 
 * Description
-~ddskk-posframe.el~ provide Henkan tooltip for [[https://github.com/skk-dev/ddskk][ddskk]] via [[https://github.com/tumashu/posframe][posframe]].
+~ddskk-posframe.el~ provides Henkan tooltip for [[https://github.com/skk-dev/ddskk][ddskk]] via [[https://github.com/tumashu/posframe][posframe]].
 
 This package is part of a family of packages that display information in ~posframe~,
 and the following is a list of families.
