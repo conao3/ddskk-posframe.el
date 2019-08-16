@@ -34,6 +34,5 @@
 ;;  test settings
 ;;
 
-(provide 'ddskk-posframe-tests)
+;; (provide 'ddskk-posframe-tests)
 ;;; ddskk-posframe-tests.el ends here
-
