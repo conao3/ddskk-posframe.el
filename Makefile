@@ -1,111 +1,70 @@
 ## Makefile
 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the Affero GNU General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
+# Copyright (C) 2019  Naoya Yamashita
 
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the Affero
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-# You should have received a copy of the Affero GNU General Public
-# License along with this program.  If not, see
-# <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 all:
 
-include Makefunc.mk
-
-TOP          := $(dir $(lastword $(MAKEFILE_LIST)))
-EMACS_RAW    := $(sort $(shell compgen -c emacs- | xargs))
-EXPECT_EMACS  += 26.1 26.2
-
-ALL_EMACS    := $(filter $(EMACS_RAW),$(EXPECT_EMACS:%=emacs-%))
-
-DEPENDS      := ddskk posframe
-
-TESTFILE     := ddskk-posframe-tests.el
-ELS          := ddskk-posframe.el
-
-CORTELS      := $(TESTFILE) cort-test.el
+REPO_USER    := conao3
+PACKAGE_NAME := ddskk-posframe
+REPO_NAME    := ddskk-posframe.el
 
 EMACS        ?= emacs
-BATCH        := $(EMACS) -Q --batch -L $(TOP) $(DEPENDS:%=-L ./%/)
+ELS          := $(shell cask files)
+
+GIT_HOOKS    := pre-commit
 
 ##################################################
 
-.PHONY: all git-hook build check allcheck test clean clean-v
+.PHONY: all
 
-all: git-hook build
+all: git-hook help
+
+git-hook: $(GIT_HOOKS:%=.git/hooks/%)
+
+.git/hooks/%: git-hooks/%
+	cp -a $< $@
+
+help:
+	$(info )
+	$(info Commands)
+	$(info ========)
+	$(info   - make          # Install git-hook to your local .git folder)
+	$(info   - make test     # Test $(PACKAGE_NAME))
+	$(info )
+	$(info Cleaning)
+	$(info ========)
+	$(info   - make clean    # Clean compiled files, docker conf files)
+	$(info )
+	$(info This Makefile required `cask`)
+	$(info See https://github.com/$(REPO_USER)/$(REPO_NAME)#contribution)
+	$(info )
+
+##############################
+
+%.elc: %.el .cask
+	cask exec $(EMACS) -Q --batch -f batch-byte-compile $<
+
+.cask: Cask
+	cask install
+	touch $@
 
 ##############################
 
-git-hook:
-	cp -a git-hooks/* .git/hooks/
-
-build: $(ELS:%.el=%.elc)
-
-%.elc: %.el $(DEPENDS)
-	$(BATCH) -f batch-byte-compile $<
-
-##############################
-#
-#  one-time test (on top level)
-#
-
-check: build
-	$(BATCH) -l $(TESTFILE) -f cort-test-run
-
-##############################
-#
-#  multi Emacs version test (on independent environment)
-#
-
-allcheck: $(ALL_EMACS:%=.make/verbose-%)
-	@echo ""
-	@cat $(^:%=%/.make-test-log) | grep =====
-	@rm -rf $^
-
-.make/verbose-%: $(DEPENDS)
-	mkdir -p $@
-	cp -rf $(ELS) $(CORTELS) $(DEPENDS) $@/
-	cd $@; echo $(ELS) | xargs -n1 -t $* -Q --batch -L ./ $(DEPENDS:%=-L ./%/) -f batch-byte-compile
-	cd $@; $* -Q --batch -L ./ $(DEPENDS:%=-L ./%/) -l $(TESTFILE) -f cort-test-run | tee .make-test-log
-
-##############################
-#
-#  silent `allcheck' job
-#
-
-test: $(ALL_EMACS:%=.make/silent-%)
-	@echo ""
-	@cat $(^:%=%/.make-test-log) | grep =====
-	@rm -rf $^
-
-.make/silent-%: $(DEPENDS)
-	@mkdir -p $@
-	@cp -rf $(ELS) $(CORTELS) $(DEPENDS) $@/
-	@cd $@; echo $(ELS) | xargs -n1 $* -Q --batch -L ./ $(DEPENDS:%=-L ./%/) -f batch-byte-compile
-	@cd $@; $* -Q --batch -L ./ $(DEPENDS:%=-L ./%/) -l $(TESTFILE) -f cort-test-run > .make-test-log 2>&1
-
-##############################
+test: $(ELS:%.el=%.elc)
+	cask exec buttercup -L .
 
 clean:
-	rm -rf $(ELS:%.el=%.elc) $(DEPENDS) .make
-
-##############################
-#
-#  depend files
-#
-
-ddskk:
-	curl -L https://github.com/skk-dev/ddskk/archive/master.tar.gz > $@.tar.gz
-	mkdir $@ && tar xf $@.tar.gz -C $@ --strip-components 1
-	rm -rf $@.tar.gz
-
-posframe:
-	curl -L https://github.com/tumashu/posframe/archive/master.tar.gz > $@.tar.gz
-	mkdir $@ && tar xf $@.tar.gz -C $@ --strip-components 1
-	rm -rf $@.tar.gz
+	rm -rf $(ELS:%.el=%.elc) .cask
