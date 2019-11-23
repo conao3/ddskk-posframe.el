@@ -1,4 +1,4 @@
-;;; ddskk-posframe-tests.el ---                                -*- lexical-binding: t; -*-
+;;; ddskk-posframe-test.el ---                                -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019  Naoya Yamashita
 
@@ -26,13 +26,12 @@
 
 ;;; Code:
 
-(load "cort-test")
+(require 'buttercup)
 (require 'ddskk-posframe)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;;  test settings
-;;
+(describe "A suite"
+  (it "contains a spec with an expectation"
+      (expect t :to-be t)))
 
-;; (provide 'ddskk-posframe-tests)
-;;; ddskk-posframe-tests.el ends here
+;; (provide 'ddskk-posframe-test)
+;;; ddskk-posframe-test.el ends here
