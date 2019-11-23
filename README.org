@@ -4,7 +4,7 @@
 [[https://github.com/conao3/ddskk-posframe.el][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/ddskk-posframe.el.png]]
 [[https://github.com/conao3/ddskk-posframe.el/blob/master/LICENSE][https://img.shields.io/github/license/conao3/ddskk-posframe.el.svg?style=flat-square]]
 [[https://github.com/conao3/ddskk-posframe.el/releases][https://img.shields.io/github/tag/conao3/ddskk-posframe.el.svg?style=flat-square]]
-[[https://travis-ci.org/conao3/ddskk-posframe.el][https://img.shields.io/travis/conao3/ddskk-posframe.el/master.svg?style=flat-square]]
+[[https://github.com/conao3/ddskk-posframe.el/actions][https://github.com/conao3/ddskk-posframe.el/workflows/Main%20workflow/badge.svg]]
 [[https://app.codacy.com/project/conao3/ddskk-posframe.el/dashboard][https://img.shields.io/codacy/grade/6ecb6ed8fd894bd693066386f803aa08.svg?logo=codacy&style=flat-square]]
 [[https://www.patreon.com/conao3][https://img.shields.io/badge/patreon-become%20a%20patron-orange.svg?logo=patreon&style=flat-square]]
 [[https://twitter.com/conao_3][https://img.shields.io/badge/twitter-@conao__3-blue.svg?logo=twitter&style=flat-square]]
