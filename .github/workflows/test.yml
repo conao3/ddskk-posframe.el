@@ -1,15 +1,19 @@
 name: Main workflow
-on: [push]
+on:
+  push: {branches: [master]}
+  pull_request: {branches: [master]}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         emacs_version:
           - '26.1'
           - '26.2'
           - '26.3'
+          - '27.1'
           - 'snapshot'
         include:
           - emacs_version: 'snapshot'
