@@ -55,7 +55,7 @@ and the following is a list of families.
       :custom ((ddskk-posframe-mode . t))))
 #+end_src
 
-** Manual instlal
+** Manual install
 Put ~ddskk-posframe.el~ at any folder added ~load-path~.
 Then ~(require 'ddskk-posframe)~.
 
