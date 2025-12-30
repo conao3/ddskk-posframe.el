@@ -1,117 +1,93 @@
-#+author: conao
-#+date: <2019-05-24 Fri>
+#+title: ddskk-posframe
+#+author: Naoya Yamashita
 
 [[https://github.com/conao3/ddskk-posframe.el][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/ddskk-posframe.el.png]]
 [[https://github.com/conao3/ddskk-posframe.el/blob/master/LICENSE][https://img.shields.io/github/license/conao3/ddskk-posframe.el.svg?style=flat-square]]
 [[https://github.com/conao3/ddskk-posframe.el/releases][https://img.shields.io/github/tag/conao3/ddskk-posframe.el.svg?style=flat-square]]
 [[https://github.com/conao3/ddskk-posframe.el/actions][https://github.com/conao3/ddskk-posframe.el/workflows/Main%20workflow/badge.svg]]
-[[https://app.codacy.com/project/conao3/ddskk-posframe.el/dashboard][https://img.shields.io/codacy/grade/6ecb6ed8fd894bd693066386f803aa08.svg?logo=codacy&style=flat-square]]
-[[https://www.patreon.com/conao3][https://img.shields.io/badge/patreon-become%20a%20patron-orange.svg?logo=patreon&style=flat-square]]
-[[https://twitter.com/conao_3][https://img.shields.io/badge/twitter-@conao__3-blue.svg?logo=twitter&style=flat-square]]
-[[https://join.slack.com/t/conao3-support/shared_invite/enQtNjUzMDMxODcyMjE1LTA4ZGRmOWYwZWE3NmE5NTkyZjk3M2JhYzU2ZmRkMzdiMDdlYTQ0ODMyM2ExOGY0OTkzMzZiMTNmZjJjY2I5NTM][https://img.shields.io/badge/chat-on_slack-blue.svg?logo=slack&style=flat-square]]
 
 [[https://raw.githubusercontent.com/conao3/files/master/blob/ddskk-posframe.el/ddskk-splash.png]]
 
-* Table of Contents
-- [[#description][Description]]
-- [[#install][Install]]
-  - [[#el-get-install][El-get install]]
-  - [[#manual-install][Manual install]]
-- [[#usage][Usage]]
-- [[#information][Information]]
-  - [[#donation][Donation]]
-  - [[#community][Community]]
-  - [[#contribution][Contribution]]
-  - [[#migration][Migration]]
-  - [[#license][License]]
-  - [[#author][Author]]
-  - [[#contributors][Contributors]]
-  - [[#special-thanks][Special Thanks]]
+* Overview
 
-* Description
-~ddskk-posframe.el~ provides Henkan tooltip for [[https://github.com/skk-dev/ddskk][ddskk]] via [[https://github.com/tumashu/posframe][posframe]].
+ddskk-posframe provides a modern tooltip display for [[https://github.com/skk-dev/ddskk][ddskk]] using [[https://github.com/tumashu/posframe][posframe]].
 
-This package is part of a family of packages that display information in ~posframe~,
-and the following is a list of families.
-- [[https://github.com/tumashu/posframe][posframe]] by tumashu
-  - [[https://github.com/tumashu/ivy-posframe][ivy-posframe]] by tumashu
-  - [[https://github.com/tumashu/helm-posframe][helm-posframe]] by tumashu
-  - [[https://github.com/tumashu/company-posframe][company-posframe]] by tumashu
-  - [[https://github.com/yanghaoxie/which-key-posframe][which-key-posframe]] by yanghaoxie
-  - [[https://github.com/conao3/ddskk-posframe.el][ddskk-posframe]] by conao3
+This package displays SKK conversion candidates in a floating frame, offering a cleaner and more visually appealing experience compared to the default tooltip.
 
-* Install
-~leaf.el~ and ~ddskk-posframe.el~ are not part of MELPA. So you need to download it on your hand.
+** Related Packages
 
-** El-get install
+ddskk-posframe is part of the posframe ecosystem:
+
+- [[https://github.com/tumashu/posframe][posframe]] - The foundation library by tumashu
+- [[https://github.com/tumashu/ivy-posframe][ivy-posframe]] - Posframe display for Ivy
+- [[https://github.com/tumashu/helm-posframe][helm-posframe]] - Posframe display for Helm
+- [[https://github.com/tumashu/company-posframe][company-posframe]] - Posframe display for Company
+
+* Installation
+
+** Using el-get
+
 #+begin_src emacs-lisp
-  (leaf skk
-    :ensure ddskk
-    :custom ((default-input-method . "japanese-skk"))
-    :config
-    (leaf ddskk-posframe
-      :el-get (ddskk-posframe in conao3/ddskk-posframe.el)
-      :require t
-      :custom ((ddskk-posframe-mode . t))))
+(leaf skk
+  :ensure ddskk
+  :custom ((default-input-method . "japanese-skk"))
+  :config
+  (leaf ddskk-posframe
+    :el-get (ddskk-posframe :url "https://github.com/conao3/ddskk-posframe.el")
+    :global-minor-mode ddskk-posframe-mode))
 #+end_src
 
-** Manual install
-Put ~ddskk-posframe.el~ at any folder added ~load-path~.
-Then ~(require 'ddskk-posframe)~.
+** Manual Installation
 
-#+BEGIN_SRC emacs-lisp
-  (leaf skk
-    :ensure ddskk
-    :custom ((default-input-method . "japanese-skk"))
-    :config
-    (leaf ddskk-posframe
-      :load-path `,(locate-user-emacs-file "site-lisp/ddskk-posframe.el")
-      :require t
-      :custom ((ddskk-posframe-mode . t))))
-#+END_SRC
+1. Clone or download this repository
+2. Add the directory to your ~load-path~
+3. Add the following to your configuration:
+
+#+begin_src emacs-lisp
+(leaf skk
+  :ensure ddskk
+  :custom ((default-input-method . "japanese-skk"))
+  :config
+  (leaf ddskk-posframe
+    :load-path "path/to/ddskk-posframe.el"
+    :global-minor-mode ddskk-posframe-mode))
+#+end_src
 
 * Usage
-Turn on minor-mode, ~ddskk-posframe-mode~, to enable this package.
 
-This package safely disable to turn off the minor-mode.
+Enable ~ddskk-posframe-mode~ to activate the posframe tooltip:
 
-* Customize
-Set ~ddskk-posframe-style~ one of ~(window-center frame-center window-bottom-left frame-bottom-left point)~
-to configure where to show tooltip.
+#+begin_src emacs-lisp
+(ddskk-posframe-mode 1)
+#+end_src
 
-* Information
-** Donation
-I love OSS and I am dreaming of working on it as *full-time* job.
+Disable the mode to revert to the default tooltip behavior.
 
-*With your support*, I will be able to spend more time at OSS!
+* Customization
 
-[[https://www.patreon.com/conao3][https://c5.patreon.com/external/logo/become_a_patron_button.png]]
+Configure the tooltip position by setting ~ddskk-posframe-style~:
 
-** Community
-All feedback and suggestions are welcome!
+#+begin_src emacs-lisp
+(setq ddskk-posframe-style 'point)
+#+end_src
 
-You can use github issues, but you can also use [[https://join.slack.com/t/conao3-support/shared_invite/enQtNjUzMDMxODcyMjE1LTA4ZGRmOWYwZWE3NmE5NTkyZjk3M2JhYzU2ZmRkMzdiMDdlYTQ0ODMyM2ExOGY0OTkzMzZiMTNmZjJjY2I5NTM][Slack]]
-if you want a more casual conversation.
+Available styles:
+- ~point~ - Display at cursor position
+- ~window-center~ - Center of the current window
+- ~frame-center~ - Center of the frame
+- ~window-bottom-left~ - Bottom left of the window
+- ~frame-bottom-left~ - Bottom left of the frame
 
-** Contribution
-We welcome PR!
-Travis Cl test with all Emacs version 26.1 or above.
+* Contributing
 
-I think that it is difficult to prepare the environment locally,
-so I think that it is good to throw PR and test Travis for the time being!
-Feel free throw PR!
+Contributions are welcome. Please feel free to submit issues and pull requests.
 
-** Migration
+The test suite runs on Emacs 26.1 and later versions.
 
-** License
-#+begin_example
-  Affero General Public License Version 3 (AGPLv3)
-  Copyright (c) Naoya Yamashita - https://conao3.com
-  https://github.com/conao3/ddskk-posframe.el/blob/master/LICENSE
-#+end_example
+* License
 
-** Author
-- Naoya Yamashita ([[https://github.com/conao3][conao3]])
+This project is licensed under the GNU Affero General Public License v3.0. See the [[https://github.com/conao3/ddskk-posframe.el/blob/master/LICENSE][LICENSE]] file for details.
 
-** Contributors
-- Not yet… Now send PR and add your name!!
+* Author
+
+Naoya Yamashita ([[https://github.com/conao3][conao3]])
