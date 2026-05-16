@@ -6,4 +6,4 @@
 (package-file "ddskk-posframe.el")
 
 (development
- (depends-on "buttercup"))
+ (depends-on "buttercup" "1.40"))
